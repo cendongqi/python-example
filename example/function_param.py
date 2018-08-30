@@ -75,4 +75,56 @@ person('cury', 31, city='orando', team='Golden Warriors')
 infos = {'city':'houston','teamname':'rocket'}
 person('yao', 32, **infos)
 
+# 命名关键字参数
+def person_kw(name, age, *, city='houston', job):
+    print(name, age, city, job)
+
+person_kw('bird', '58', city='boston', job='manager')
+person_kw('paul', '35', job = '123')
+
+# 参数顺序
+def param_index(a, b=0, *c, d, **e):
+    print(a, b, c, d, e)
+param_index(1, 2, 'a', 'b', d=3, e=4, g=5)
+args=(1,2,3,4)
+kw={'d':9, 'x': '#'}
+param_index(*args, **kw)
+
+# exercise
+# 以下函数允许计算两个数的乘积，请稍加改造，变成可接收一个或多个数并计算乘积：
+# def product(x, y):
+#     return x * y
+
+def product(*y):
+    if y is None:
+        raise TypeError('param is none')
+    elif len(y) == 0:
+        raise TypeError('param is empty')
+    else:
+        mul = 1
+        for num in y:
+            mul = mul * num
+        return mul
+
+# 测试
+print('product(5) =', product(5))
+print('product(5, 6) =', product(5, 6))
+print('product(5, 6, 7) =', product(5, 6, 7))
+print('product(5, 6, 7, 9) =', product(5, 6, 7, 9))
+if product(5) != 5:
+    print('测试失败!')
+elif product(5, 6) != 30:
+    print('测试失败!')
+elif product(5, 6, 7) != 210:
+    print('测试失败!')
+elif product(5, 6, 7, 9) != 1890:
+    print('测试失败!')
+else:
+    try:
+        product()
+        print('测试失败!')
+    except TypeError:
+        print('测试成功!')
+
+
 
